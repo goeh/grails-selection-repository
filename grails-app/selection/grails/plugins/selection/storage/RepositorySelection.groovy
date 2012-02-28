@@ -44,7 +44,7 @@ class RepositorySelection {
         // Convert the specified primary key to Long
         def id = Long.valueOf(uri.schemeSpecificPart)
         // Find selection in repository
-        def storedURI = selectionRepositoryService.selection(id)
+        def storedURI = selectionRepositoryService.get(id)
         if(log.isDebugEnabled()) {
             log.debug "$uri = $storedURI"
         }

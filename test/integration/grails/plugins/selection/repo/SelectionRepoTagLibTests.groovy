@@ -11,10 +11,10 @@ class SelectionRepoTagLibTests extends GroovyPagesTestCase {
     def selectionRepositoryService
 
     void testTagLibIterate() {
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=A*"), null, "testEntity", null, "A people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=B*"), null, "testEntity", null, "B people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", null, "C people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", "joe", "D people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=A*"), null, "testEntity", null, "A people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=B*"), null, "testEntity", null, "B people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", null, "C people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", "joe", "D people")
 
         def template = '<selection:listRepo location="testEntity"><li>\${it.name}</li></selection:listRepo>'
         assert applyTemplate(template) == '<li>A people</li><li>B people</li><li>C people</li>'

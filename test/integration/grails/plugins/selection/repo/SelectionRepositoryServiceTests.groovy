@@ -11,10 +11,10 @@ class SelectionRepositoryServiceTests extends GroovyTestCase {
     def selectionRepositoryService
 
     void testList() {
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=A*"), null, "testEntity", "joe.user", "Joe's private A people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=B*"), null, "testEntity", "joe.user", "Joe's private B people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", "liza.user", "Liza's C people")
-        selectionRepositoryService.update(new URI("gorm://testEntity/list?name=D*"), null, "testEntity", null, "Public D people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=A*"), null, "testEntity", "joe.user", "Joe's private A people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=B*"), null, "testEntity", "joe.user", "Joe's private B people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=C*"), null, "testEntity", "liza.user", "Liza's C people")
+        selectionRepositoryService.put(new URI("gorm://testEntity/list?name=D*"), null, "testEntity", null, "Public D people")
 
         assert selectionRepositoryService.list("testEntity", "joe.user").size() == 2
         assert selectionRepositoryService.list("testEntity", "liza.user").size() == 1
@@ -28,7 +28,7 @@ class SelectionRepositoryServiceTests extends GroovyTestCase {
         new TestEntity(number: "4", name: "Folke").save()
         new TestEntity(number: "5", name: "David").save()
 
-        def uri = selectionRepositoryService.update(new URI("gorm://testEntity/list?name=B*"), null, 'testEntity', 'joe.user', 'Test Selection')
+        def uri = selectionRepositoryService.put(new URI("gorm://testEntity/list?name=B*"), null, 'testEntity', 'joe.user', 'Test Selection')
         def result = selectionService.select(uri, [:])
         assert result.size() == 2
         result.each {

@@ -59,7 +59,7 @@ class SelectionRepositoryService {
      * @param id primary key of the wanted selection
      * @return the selection's URI
      */
-    URI selection(Long id) {
+    URI get(Long id) {
         def s = SelectionRepository.read(id)
         if (!s) {
             throw new IllegalArgumentException("No selection found with id [$id]")
@@ -78,7 +78,7 @@ class SelectionRepositoryService {
      * @param description a text that explains the expected result of using this selection
      * @return a selection URI suitable for retrieving/invoking the persisted selection
      */
-    URI update(URI selection, Long tenant, String location, String username, String name, String description = null) {
+    URI put(URI selection, Long tenant, String location, String username, String name, String description = null) {
         // Try to find persistent selection.
         def s = SelectionRepository.createCriteria().get() {
             if (tenant != null) {
