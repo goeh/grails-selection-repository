@@ -71,25 +71,25 @@ class SelectionRepositoryService {
      * Create or update a persistent selection.
      *
      * @param selection a selection URI or null if only description is to be updated
-     * @param tenant optional tenant ID
      * @param location a string that identifies where this selection is valid (i.e. controller or domain name)
      * @param username the user who owns this selection, or null is it's a public selection
      * @param name name of the selection
      * @param description a text that explains the expected result of using this selection
+     * @param tenant optional tenant ID
      * @return a selection URI suitable for retrieving/invoking the persisted selection
      */
-    URI put(URI selection, Long tenant, String location, String username, String name, String description = null) {
+    URI put(URI selection, String location, String username, String name, String description = null, Long tenant = null) {
         // Try to find persistent selection.
         def s = SelectionRepository.createCriteria().get() {
-            if (tenant != null) {
-                eq('tenantId', tenant)
-            }
             eq('location', location)
             eq('name', name)
             if (username) {
                 eq('username', username)
             } else {
                 isNull('username')
+            }
+            if (tenant != null) {
+                eq('tenantId', tenant)
             }
         }
 
