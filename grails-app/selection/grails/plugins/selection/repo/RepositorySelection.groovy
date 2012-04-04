@@ -15,6 +15,8 @@
  *  under the License.
  */
 
+package grails.plugins.selection.repo
+
 /**
  * This selection handler provides access to persisted selections.
  * selection://host/servlet?query=foo
