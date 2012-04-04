@@ -39,7 +39,7 @@ class SelectionRepositoryService {
      * @return a list of selections matching the parameters. Each list entry is a Map with selection properties
      */
     List<Map<String, Object>> list(String location, String username = null, Long tenant = null) {
-        def result = SelectionRepository.createCriteria().list([sort: 'name', order: 'asc']) {
+        SelectionRepository.createCriteria().list([sort: 'name', order: 'asc']) {
             eq('location', location)
             if (username) {
                 eq('username', username)
@@ -49,8 +49,7 @@ class SelectionRepositoryService {
             if (tenant != null) {
                 eq('tenantId', tenant)
             }
-        }
-        return result.collect {[id: it.id, name: it.name, description: it.description, uri:it.uri.toString()]}
+        }.collect {[id: it.id, name: it.name, description: it.description, uri:it.uri]}
     }
 
     /**
@@ -64,7 +63,7 @@ class SelectionRepositoryService {
         if (!s) {
             throw new IllegalArgumentException("No selection found with id [$id]")
         }
-        s.selection
+        s.uri
     }
 
     /**
@@ -103,11 +102,19 @@ class SelectionRepositoryService {
             s.description = description ?: null // Empty string will be stored as null.
         }
         if (selection) {
-            s.uri = selection.toASCIIString() // Only update if present.
+            s.uri = selection // Only update if present.
         }
 
         s.save(failOnError: true)
 
         return new URI(SCHEME + ':' + s.ident())
+    }
+
+    void delete(Long id) {
+        def s = SelectionRepository.get(id)
+        if (!s) {
+            throw new IllegalArgumentException("No selection found with id [$id]")
+        }
+        s.delete()
     }
 }

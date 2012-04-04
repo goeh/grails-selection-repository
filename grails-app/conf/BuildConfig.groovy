@@ -37,6 +37,6 @@ grails.project.dependency.resolution = {
         runtime(":hibernate:$grailsVersion") {
             export = false
         }
-        compile ":selection:0.5"
+        runtime ":selection:latest.integration"
     }
 }

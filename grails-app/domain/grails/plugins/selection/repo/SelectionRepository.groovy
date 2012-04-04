@@ -23,21 +23,29 @@ class SelectionRepository {
     String username
     String name
     String description
-    String uri
+    String uriString
 
     static constraints = {
-        tenantId(nullable:true)
-        location(maxSize:255, blank:false)
-        username(maxSize:80, nullable:true)
-        name(maxSize:80, blank:false, unique:['username', 'location', 'tenantId'])
-        description(maxSize:2000, nullable:true)
-        uri(maxSize:2000, blank:false)
+        tenantId(nullable: true)
+        location(maxSize: 255, blank: false)
+        username(maxSize: 80, nullable: true)
+        name(maxSize: 80, blank: false, unique: ['username', 'location', 'tenantId'])
+        description(maxSize: 2000, nullable: true)
+        uriString(maxSize: 2000, blank: false) // TODO should we allow longer URIs?
     }
 
-    static transients = ["selection"]
+    static transients = ["uri"]
 
-    URI getSelection() {
-        new URI(uri)
+    URI getUri() {
+        uriString ? new URI(uriString) : null
+    }
+
+    void setUri(URI uri) {
+        uriString = uri ? uri.toASCIIString() : null
+    }
+
+    void setUri(String uri) {
+        uriString = uri ? new URI(uri).toASCIIString() : null
     }
 
     String toString() {
