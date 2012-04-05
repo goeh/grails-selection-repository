@@ -19,7 +19,7 @@ package grails.plugins.selection.repo
 
 class SelectionRepoTagLib {
 
-    static namespace = "selection"
+    static namespace = "s"
 
     def selectionRepositoryService
 
