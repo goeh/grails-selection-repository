@@ -27,22 +27,24 @@ class SelectionRepositoryController {
 
     static WHITE_LIST = ['username', 'location', 'name', 'description', 'uriString']
 
+    def selectionService
     def selectionRepositoryService
     def grailsApplication
 
     def create() {
         switch (request.method) {
             case 'GET':
-                def selection = new SelectionRepository()
+                def selection = new SelectionRepository(uriString: params.uri ?: params.id)
                 bindData(selection, params, [include: WHITE_LIST])
                 [selectionRepository: selection, referer: params.referer]
                 break
             case 'POST':
-                def uri = selectionRepositoryService.put(new URI(params.uri), params.location, params.username, params.name, params.description)
+                def selection = selectionService.decodeSelection(params.uri)
+                def uri = selectionRepositoryService.put(selection, params.location, params.username, params.name, params.description)
                 if (params.referer) {
                     redirect(uri: params.referer - request.contextPath)
                 } else {
-                    redirect(controller: params.location, action: "list", id: uri.toString().encodeAsURL())
+                    redirect(controller: params.location, action: "list", id: selectionService.encodeSelection(uri))
                 }
                 break
         }
