@@ -23,13 +23,18 @@ import javax.servlet.http.HttpServletResponse
  */
 class SelectionRepositoryController {
 
+    static allowedMethods = [create:['GET', 'POST'], delete:'POST']
+
+    static WHITE_LIST = ['username', 'location', 'name', 'description', 'uriString']
+
     def selectionRepositoryService
     def grailsApplication
 
     def create() {
         switch (request.method) {
             case 'GET':
-                def selection = new SelectionRepository(params)
+                def selection = new SelectionRepository()
+                bindData(selection, params, [include: WHITE_LIST])
                 [selectionRepository: selection, referer: params.referer]
                 break
             case 'POST':
