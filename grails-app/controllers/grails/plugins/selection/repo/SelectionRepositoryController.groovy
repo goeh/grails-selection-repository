@@ -12,7 +12,6 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *  under the License.
  */
 package grails.plugins.selection.repo
 
@@ -36,11 +35,14 @@ class SelectionRepositoryController {
             case 'GET':
                 def selection = new SelectionRepository(uriString: params.uri ?: params.id)
                 bindData(selection, params, [include: WHITE_LIST])
+                if(params.tenant) {
+                    selection.tenantId = params.long('tenant')
+                }
                 [selectionRepository: selection, referer: params.referer]
                 break
             case 'POST':
                 def selection = selectionService.decodeSelection(params.uri)
-                def uri = selectionRepositoryService.put(selection, params.location, params.username, params.name, params.description)
+                def uri = selectionRepositoryService.put(selection, params.location, params.username, params.name, params.description, params.long('tenant'))
                 if (params.referer) {
                     redirect(uri: params.referer - request.contextPath)
                 } else {

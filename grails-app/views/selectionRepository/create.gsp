@@ -3,13 +3,13 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'selectionRepository.label', default: 'Selection')}"/>
-    <title><g:message code="default.create.label" args="[entityName]"/></title>
+    <title><g:message code="selectionRepository.create.title" args="[entityName]"/></title>
 </head>
 
 <body>
 
 <div class="page-header">
-    <h1><g:message code="default.create.label" args="[entityName]"/></h1>
+    <h1><g:message code="selectionRepository.create.title" args="[entityName]"/></h1>
 </div>
 
 <g:if test="${flash.message}">
@@ -32,6 +32,7 @@
         <g:hiddenField name="location" value="${selectionRepository.location}"/>
         <g:hiddenField name="username" value="${selectionRepository.username}"/>
         <g:hiddenField name="uri" value="${selectionRepository.uri}"/>
+        <g:hiddenField name="tenant" value="${selectionRepository.tenantId}"/>
         <g:hiddenField name="referer" value="${referer}"/>
         <fieldset>
             <f:with bean="selectionRepository">
@@ -45,7 +46,7 @@
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
                     <i class="icon-ok icon-white"></i>
-                    <g:message code="default.button.create.label" default="Create"/>
+                    <g:message code="selectionRepository.button.save.label" default="Save"/>
                 </button>
             </div>
         </fieldset>
