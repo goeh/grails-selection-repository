@@ -3,13 +3,13 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'selectionRepository.label', default: 'Selection')}"/>
-    <title><g:message code="selectionRepository.create.title" args="[entityName]"/></title>
+    <title><g:message code="selectionRepository.edit.title" args="[entityName, selectionRepository]"/></title>
 </head>
 
 <body>
 
 <div class="page-header">
-    <h1><g:message code="selectionRepository.create.title" args="[entityName]"/></h1>
+    <h1><g:message code="selectionRepository.edit.title" args="[entityName, selectionRepository]"/></h1>
 </div>
 
 <g:if test="${flash.message}">
@@ -27,12 +27,9 @@
     </bootstrap:alert>
 </g:hasErrors>
 
-<g:form class="form-horizontal" action="create">
-    <g:hiddenField name="location" value="${selectionRepository.location}"/>
-    <g:hiddenField name="username" value="${selectionRepository.username}"/>
-    <g:hiddenField name="uri" value="${selectionRepository.uri}"/>
-    <g:hiddenField name="tenant" value="${selectionRepository.tenantId}"/>
-    <g:hiddenField name="referer" value="${referer}"/>
+<g:form class="form-horizontal" action="edit">
+    <g:hiddenField name="id" value="${selectionRepository.id}"/>
+    <g:hiddenField name="version" value="${selectionRepository.version}"/>
     <fieldset>
         <f:with bean="selectionRepository">
             <f:field property="name">
@@ -45,9 +42,14 @@
             </f:field>
         </f:with>
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-primary" name="_action_edit">
                 <i class="icon-ok icon-white"></i>
                 <g:message code="selectionRepository.button.save.label" default="Save"/>
+            </button>
+            <button type="submit" class="btn btn-danger" name="_action_delete"
+                    onclick="return confirm('${message(code:'selectionRepository.button.delete.confirm.message', default:'Are you sure?')}')">
+                <i class="icon-trash icon-white"></i>
+                <g:message code="selectionRepository.button.delete.label" default="Delete"/>
             </button>
         </div>
     </fieldset>
