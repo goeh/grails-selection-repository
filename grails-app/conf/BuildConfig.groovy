@@ -20,6 +20,6 @@ grails.project.dependency.resolution = {
             export = false
         }
         runtime(":hibernate:$grailsVersion") { export = false }
-        runtime ":selection:latest.integration"
+        runtime ":selection:0.9.2"
     }
 }
