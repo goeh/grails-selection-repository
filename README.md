@@ -14,13 +14,12 @@ The plugin is multi-tenant aware and provides a Twitter Bootstrap based user int
 
 **Example**
 
-    def uri = new URI("gorm://person/list?lastName=A*")
-    def id = selectionRepositoryService.put(uri, "person", "A people")
+    def theQuery = new URI("gorm://person/list?lastName=A*")
+    def savedQuery = selectionRepositoryService.put(theQuery, "person", "A people")
 
 Later...
 
-    def uri = selectionRepositoryService.get(id)
-    def result = selectionService.select(uri, [offset:0, max:10])
+    def result = selectionService.select(savedQuery, [offset:0, max:10])
     // The result now contains a list of people who's name begins with A.
 
 ## SelectionRepositoryService
