@@ -15,43 +15,26 @@
  */
 
 class SelectionRepositoryGrailsPlugin {
-    // the plugin version
-    def version = "0.9.2"
-    // the version or versions of Grails the plugin is designed for
+    def version = "0.9.3-SNAPSHOT"
     def grailsVersion = "2.0 > *"
-    // the other plugins this plugin depends on
-    def dependsOn = [selection:'0.7 > *']
-    // resources that are excluded from plugin packaging
+    def dependsOn = [:]
+    def loadAfter = ['selection']
     def pluginExcludes = [
         "grails-app/domain/test/TestEntity.groovy",
         "grails-app/views/error.gsp"
     ]
-
     def title = "Repository for persistent selections"
     def author = "Goran Ehrsson"
     def authorEmail = "goran@technipelago.se"
     def description = '''\
-This plugin complements the 'selection' plugin and let users save
+This plugin is an add-on to the 'selection' plugin (grails.org/plugin/selection) and let users save
 selections to the database for later use.
+The plugin provides SelectionRepositoryService to interact with selections and a Twitter Bootstrap user interface
+for saving and managing saved selections.
 '''
-
-    // URL to the plugin's documentation
-    def documentation = "http://grails.org/plugin/selection-repository"
-
-    // Extra (optional) plugin metadata
-
-    // License: one of 'APACHE', 'GPL2', 'GPL3'
+    def documentation = "https://github.com/goeh/grails-selection-repository"
     def license = "APACHE"
-
-    // Details of company behind the plugin (if there is one)
     def organization = [ name: "Technipelago AB", url: "http://www.technipelago.se/" ]
-
-    // Any additional developers beyond the author specified above.
-    //    def developers = [ [ name: "Joe Bloggs", email: "joe@bloggs.net" ]]
-
-    // Location of the plugin's issue tracker.
     def issueManagement = [ system: "github", url: "https://github.com/goeh/grails-selection-repository/issues" ]
-
-    // Online location of the plugin's browseable source code.
     def scm = [ url: "https://github.com/goeh/grails-selection-repository" ]
 }

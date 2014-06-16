@@ -28,7 +28,6 @@ class SelectionRepositoryController {
 
     def selectionService
     def selectionRepositoryService
-    def grailsApplication
 
     def list(String location, String username, Long tenant) {
         def result = selectionRepositoryService.list(location, username, tenant)
@@ -38,7 +37,10 @@ class SelectionRepositoryController {
     def create() {
         switch (request.method) {
             case 'GET':
-                def selection = new SelectionRepository(uriString: params.uri ?: params.id)
+                def selection = new SelectionRepository()
+                if(! params.uriString) {
+                    params.uriString = params.uri ?: params.id
+                }
                 bindData(selection, params, [include: WHITE_LIST])
                 if (params.tenant) {
                     selection.tenantId = params.long('tenant')
