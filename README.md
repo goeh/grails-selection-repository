@@ -74,6 +74,7 @@ String username    | User that saved the selection
 String name        | Selection name given by the user
 String description | Selection description given by the user
 URI uri            | The selection URI - this is the object you send to *selectionService.select(URI)* to execute the query
+Long id            | The unique ID for the selection 
 
 ## GSP Tags
 
