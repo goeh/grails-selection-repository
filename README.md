@@ -25,6 +25,56 @@ Later...
 
 ## SelectionRepositoryService
 
+**List<Map> list(String location, String username = null)**
+
+List saved selections.
+
+Parameter | Description
+--------- | -----------------
+location  | Typically the root entity name for the query (com.foo.CustomerAddress -> customerAddress)
+username  | Return only selections saved by a specific user
+
+**URI get(Long id)**
+
+Get the URI for a selection in the repository.
+
+Parameter | Description
+--------- | -----------------
+id        | Lookup selection based on it's primary key
+
+
+**URI put(URI selection, String location, String username, String name, String description = null)**
+
+Save a selection in the repository.
+
+Parameter   | Description
+----------- | -----------------
+selection   | The selection to save in the repository
+location    | Typically the root entity name for the query (com.foo.CustomerAddress -> customerAddress)
+username    | Save the selection in a specific user's repository. If not specified the selection will be available to all users
+name        | A short name for the selection. This will typically be displayed in select menus
+description | A text that explains what the selection returns, for example "This query will find all customers in France"
+
+**void delete(Long id)**
+
+Remove a selection from the repository
+
+Parameter | Description
+--------- | -----------------
+id        | Primary key of the selection to remove
+
+### Repository Object
+
+The object returned by *list()* has the following properties:
+
+Property           | Description
+------------------ | ---------------
+String location    | Typically the root entity name for the query (com.foo.CustomerAddress -> customerAddress)
+String username    | User that saved the selection
+String name        | Selection name given by the user
+String description | Selection description given by the user
+URI uri            | The selection URI - this is the object you send to *selectionService.select(URI)* to execute the query
+
 ## GSP Tags
 
 ### listRepo
@@ -37,7 +87,7 @@ tenant    | (optional) List only selections saved in a specific tenant. In a mul
 var       | (optional) The name of the selection item, defaults to "it".
 status    | (optional) The name of a variable to store the iteration index in.
 
-The object available in the tag body via **var** has the following properties:
+The object available in the tag body via **var** is described in section **Repository Object** above.
 
 Property           | Description
 ------------------ | ---------------
