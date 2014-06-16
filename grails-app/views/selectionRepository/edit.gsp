@@ -13,34 +13,42 @@
 </div>
 
 <g:if test="${flash.message}">
-    <bootstrap:alert class="alert-info">${flash.message}</bootstrap:alert>
+    <div class="alert alert-info">${flash.message}</div>
 </g:if>
 
 <g:hasErrors bean="${selectionRepository}">
-    <bootstrap:alert class="alert-error">
+    <div class="alert alert-error">
         <ul>
             <g:eachError bean="${selectionRepository}" var="error">
                 <li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message
                         error="${error}"/></li>
             </g:eachError>
         </ul>
-    </bootstrap:alert>
+    </div>
 </g:hasErrors>
 
 <g:form class="form-horizontal" action="edit">
     <g:hiddenField name="id" value="${selectionRepository.id}"/>
     <g:hiddenField name="version" value="${selectionRepository.version}"/>
     <fieldset>
-        <f:with bean="selectionRepository">
-            <f:field property="name">
+        <div class="control-group">
+            <label class="control-label"><g:message code="selectionRepository.name.label" default="Name"/></label>
+
+            <div class="controls">
                 <g:textField name="name" value="${selectionRepository.name}" autofocus=""
-                             placeholder="${message(code:'selectionRepository.name.placeholder', default:'')}"/>
-            </f:field>
-            <f:field property="description">
+                             placeholder="${message(code: 'selectionRepository.name.placeholder', default: '')}"/>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label"><g:message code="selectionRepository.description.label"
+                                                    default="Description"/></label>
+
+            <div class="controls">
                 <g:textArea name="description" rows="3" cols="70" value="${selectionRepository.description}"
-                            placeholder="${message(code:'selectionRepository.description.placeholder', default:'')}"/>
-            </f:field>
-        </f:with>
+                            placeholder="${message(code: 'selectionRepository.description.placeholder', default: '')}"/>
+            </div>
+        </div>
         <div class="form-actions">
             <button type="submit" class="btn btn-primary" name="_action_edit">
                 <i class="icon-ok icon-white"></i>
