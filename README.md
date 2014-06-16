@@ -10,7 +10,7 @@ Then you can use this plugin to let the user save the query for future use.
 Selections (queries) can be private or public which means that each user can have their own list of favorite queries
 or you can provide a list of standard queries for users to select from.
 
-The plugin is multi-tenant aware and provides a Twitter Bootstrap based user interface and GSP tags for managing saved selections.
+The plugin is multi-tenant aware and provide a Twitter Bootstrap based user interface and GSP tags for managing saved selections.
 
 **Example**
 
@@ -105,4 +105,4 @@ David can then click the link to execute the saved query and see the result in a
 
 ## Miscellaneous
 
-- The [GR8 CRM ecosystem](http://gr8crm.github.io) uses selection-repo plugin in most of it's CRUD views.
+- The [GR8 CRM ecosystem](http://gr8crm.github.io) uses selection-repository plugin in most of it's CRUD views.
