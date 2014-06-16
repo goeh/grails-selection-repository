@@ -1,11 +1,16 @@
-# Persistent Selections for the Selection Plugin
+# Persistent Selections Plugin
 
-The [selection plugin](http://grails.org/plugin/selection) provides unified search for information.
+The Grails [selection plugin](http://grails.org/plugin/selection) provides unified search for information.
 It uses a URI based syntax to select any information from any resource.
 
-**This** plugin extends the functionality of the selection plugin by providing persistent storage for selections.
-A user can save a selection (query filter) for future use. This plugin is tenant-aware and provides a
-Twitter Bootstrap based user interface and GSP tags for managing saved selections.
+**This** plugin "Persistent Selections" extends the functionality of the selection plugin by providing persistent storage for selections.
+
+You provide the user with a query form and use the *selection* plugin to execute the query.
+Then you can use this plugin to let the user save the query for future use.
+Selections (queries) can be private or public which means that each user can have their own list of favorite queries
+or you can provide a list of standard queries for users to select from.
+
+The plugin is tenant-aware and provides a Twitter Bootstrap based user interface and GSP tags for managing saved selections.
 
 **Example**
 

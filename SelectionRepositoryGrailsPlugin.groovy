@@ -15,7 +15,7 @@
  */
 
 class SelectionRepositoryGrailsPlugin {
-    def version = "0.9.3-SNAPSHOT"
+    def version = "0.9.3"
     def grailsVersion = "2.0 > *"
     def dependsOn = [:]
     def loadAfter = ['selection']
@@ -23,7 +23,7 @@ class SelectionRepositoryGrailsPlugin {
         "grails-app/domain/test/TestEntity.groovy",
         "grails-app/views/error.gsp"
     ]
-    def title = "Repository for persistent selections"
+    def title = "Repository for Persistent Selections"
     def author = "Goran Ehrsson"
     def authorEmail = "goran@technipelago.se"
     def description = '''\
