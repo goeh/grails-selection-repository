@@ -24,6 +24,8 @@ class SelectionRepositoryService {
 
     static transactional = true
 
+    def currentTenant
+
     /**
      * List selections stored in the repository.
      *
@@ -38,6 +40,7 @@ class SelectionRepositoryService {
      * @return a list of selections matching the parameters. Each list entry is a Map with selection properties
      */
     List<Map<String, Object>> list(String location, String username = null, Long tenant = null) {
+        Long tenantId = currentTenant?.get() ?: tenant
         SelectionRepository.createCriteria().list([sort: 'name', order: 'asc']) {
             eq('location', location)
             if (username) {
@@ -45,8 +48,8 @@ class SelectionRepositoryService {
             } else {
                 isNull('username')
             }
-            if (tenant != null) {
-                eq('tenantId', tenant)
+            if (tenantId != null) {
+                eq('tenantId', tenantId)
             }
         }.collect {[id: it.id, name: it.name, description: it.description, uri:it.uri]}
     }
@@ -60,6 +63,10 @@ class SelectionRepositoryService {
     URI get(Long id) {
         def s = SelectionRepository.read(id)
         if (!s) {
+            throw new IllegalArgumentException("No selection found with id [$id]")
+        }
+        def tenant = currentTenant?.get()
+        if(tenant != null && tenant != s.tenantId) {
             throw new IllegalArgumentException("No selection found with id [$id]")
         }
         s.uri
@@ -77,6 +84,7 @@ class SelectionRepositoryService {
      * @return a selection URI suitable for retrieving/invoking the persisted selection
      */
     URI put(URI selection, String location, String username, String name, String description = null, Long tenant = null) {
+        Long tenantId = currentTenant?.get() ?: tenant
         // Try to find persistent selection.
         def s = SelectionRepository.createCriteria().get() {
             eq('location', location)
@@ -86,14 +94,14 @@ class SelectionRepositoryService {
             } else {
                 isNull('username')
             }
-            if (tenant != null) {
-                eq('tenantId', tenant)
+            if (tenantId != null) {
+                eq('tenantId', tenantId)
             }
         }
 
         if (!s) {
             // Create new persistent selection
-            s = new SelectionRepository(tenantId: tenant, location: location, username: username, name: name)
+            s = new SelectionRepository(tenantId: tenantId, location: location, username: username, name: name)
         }
 
         // Update URI and description.
@@ -112,6 +120,10 @@ class SelectionRepositoryService {
     void delete(Long id) {
         def s = SelectionRepository.get(id)
         if (!s) {
+            throw new IllegalArgumentException("No selection found with id [$id]")
+        }
+        def tenant = currentTenant?.get()
+        if(tenant != null && tenant != s.tenantId) {
             throw new IllegalArgumentException("No selection found with id [$id]")
         }
         s.delete()

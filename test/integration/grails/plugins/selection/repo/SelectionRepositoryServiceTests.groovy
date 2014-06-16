@@ -2,8 +2,10 @@ package grails.plugins.selection.repo
 
 import test.TestEntity
 
+import java.util.concurrent.atomic.AtomicLong
+
 /**
- * Tests for SelectionStorageService
+ * Tests for SelectionRepositoryService
  */
 class SelectionRepositoryServiceTests extends GroovyTestCase {
 
@@ -38,13 +40,24 @@ class SelectionRepositoryServiceTests extends GroovyTestCase {
 
     void testTenants() {
         // Store same selection under 5 different tenants.
-        5.times {tenant ->
-            selectionRepositoryService.put(new URI("gorm://testEntity/list?name=A*"), "testEntity", "joe.user", "Joe's private A people", null, tenant)
+        (1..5).each { tenant ->
+            assert selectionRepositoryService.put(new URI("gorm://testEntity/list?name=A*"), "testEntity", "joe.user", "Joe's private A people", null, tenant)
         }
 
         // Each tenant should only se it's own selection.
-        5.times {tenant ->
+        (1..5).each { tenant ->
             assert selectionRepositoryService.list("testEntity", "joe.user", tenant).size() == 1
+        }
+
+        selectionRepositoryService.currentTenant = new AtomicLong()
+
+        try {
+            (1..5).each { tenant ->
+                selectionRepositoryService.currentTenant.set(tenant)
+                assert selectionRepositoryService.list("testEntity", "joe.user").size() == 1
+            }
+        } finally {
+            selectionRepositoryService.currentTenant = null
         }
 
         assert selectionRepositoryService.list("testEntity", "joe.user").size() == 5
