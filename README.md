@@ -10,7 +10,7 @@ Then you can use this plugin to let the user save the query for future use.
 Selections (queries) can be private or public which means that each user can have their own list of favorite queries
 or you can provide a list of standard queries for users to select from.
 
-The plugin is tenant-aware and provides a Twitter Bootstrap based user interface and GSP tags for managing saved selections.
+The plugin is multi-tenant aware and provides a Twitter Bootstrap based user interface and GSP tags for managing saved selections.
 
 **Example**
 
@@ -27,7 +27,7 @@ Later...
 
 **List<Map> list(String location, String username = null)**
 
-List saved selections.
+List selections in the repository.
 
 Parameter | Description
 --------- | -----------------
