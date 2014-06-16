@@ -77,7 +77,7 @@ URI uri            | The selection URI - this is the object you send to *selecti
 
 ## GSP Tags
 
-### listRepo
+**listRepo**
 
 Attribute | Description
 --------- | --------------
@@ -88,14 +88,6 @@ var       | (optional) The name of the selection item, defaults to "it".
 status    | (optional) The name of a variable to store the iteration index in.
 
 The object available in the tag body via **var** is described in section **Repository Object** above.
-
-Property           | Description
------------------- | ---------------
-String location    | Typically the root entity name for the query (com.foo.CustomerAddress -> customerAddress)
-String username    | User that saved the selection
-String name        | Selection name given by the user
-String description | Selection description given by the user
-URI uri            | The selection URI - this is the object you send to *selectionService.select(URI)* to execute the query
 
 The following GSP code snippet shows how you can list all selections saved by user 'david'.
 David can then click the link to execute the saved query and see the result in a list view.
